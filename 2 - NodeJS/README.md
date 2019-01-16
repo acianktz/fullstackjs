@@ -54,19 +54,28 @@ Listo! Ya tenemos la base de datos
 La Base de datos contiene las siguientes colecciones:
 
 - pokemon
+- types
 
 Cada uno de los elementos tiene la siguiente estructuraa
 
-### Respuesta
+#### pokemon
 
 | Name            | Desription                                           | Type          |
 | --------------- |:----------------------------------------------------:| -------------:|
 | id              | Pokemon Id                                           | Integer       |
+| name            | Nombre del Pokemon                                   | String        |
 | base_experience | Experiencia base del Pokemon al ser capturado        | Integer       |
 | height          | Altura del Pokemon en **decimetros**                 | Integer       |
 | moves           | Lista de Movimientos                                 | Array<String> |
 | types           | Lista de los tipos al que pertenece el Pokemon       | String        |
 | weight          | Peso del Pokemon en **hectogramos**                  | Integer       |
+
+#### types
+
+| Name            | Desription                                           | Type          |
+| --------------- |:----------------------------------------------------:| -------------:|
+| id              | Pokemon Id                                           | Integer       |
+| name            | Nombre del Type                                      | String        |
 
 # Endpoints
 
@@ -80,8 +89,8 @@ Debera retornar **todos** los Pokemons páginados.
 
 | Name        | Desription                           | Type    |
 | ----------- |:------------------------------------:| -------:|
-| limit       | How many pokemons its going to bring | Integer |
-| offset      | The offset you wan't to apply        | Integer |
+| limit       | La cantidad de Pokemons a traer      | Integer |
+| offset      | El offset a aplicar                  | Integer |
 
 ### Respuesta
 
@@ -94,6 +103,7 @@ Debera retornar **todos** los Pokemons páginados.
 | Name            | Desription                                           | Type          |
 | --------------- |:----------------------------------------------------:| -------------:|
 | id              | Pokemon Id                                           | Integer       |
+| name            | Nombre del Pokemon                                   | String        |
 | base_experience | Experiencia base del Pokemon al ser capturado        | Integer       |
 | height          | Altura del Pokemon en **centimetros**                | Integer       |
 | moves           | Lista de Movimientos                                 | Array<String> |
@@ -110,8 +120,43 @@ Debera retornar el **pokemon** con el id especifico
 | Name            | Desription                                           | Type          |
 | --------------- |:----------------------------------------------------:| -------------:|
 | id              | Pokemon Id                                           | Integer       |
+| name            | Nombre del Pokemon                                   | String        |
 | base_experience | Experiencia base del Pokemon al ser capturado        | Integer       |
 | height          | Altura del Pokemon en **centimetros**                | Integer       |
 | moves           | Lista de Movimientos                                 | Array<String> |
 | types           | Lista de los tipos al que pertenece el Pokemon       | String        |
 | weight          | Peso del Pokemon en **gramos**                       | Integer       |
+
+## GET /types
+
+Debera retornar **todos** tipos de Pokemons
+
+### Respuesta
+
+| Name        | Desription                           | Type    |
+| ----------- |:------------------------------------:| -------:|
+| results     | Lista de Pokemons                    | Array   |
+
+#### Results
+
+| Name            | Desription                                           | Type          |
+| --------------- |:----------------------------------------------------:| -------------:|
+| id              | Pokemon Id                                           | Integer       |
+| name            | Nombre del Type                                      | String        |
+
+### Respuesta
+
+| Name        | Desription                           | Type    |
+| ----------- |:------------------------------------:| -------:|
+| results     | Lista de Pokemons                    | Array   |
+
+## GET /types/{id}
+
+Debera retornar el tipo de pokemon con el id especifico
+
+### Respuesta
+
+| Name            | Desription                                           | Type          |
+| --------------- |:----------------------------------------------------:| -------------:|
+| id              | Pokemon Id                                           | Integer       |
+| name            | Nombre del Type                                      | String        |
