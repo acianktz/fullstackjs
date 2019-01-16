@@ -63,10 +63,10 @@ Cada uno de los elementos tiene la siguiente estructuraa
 | --------------- |:----------------------------------------------------:| -------------:|
 | id              | Pokemon Id                                           | Integer       |
 | base_experience | Experiencia base del Pokemon al ser capturado        | Integer       |
-| height          | Altura del Pokemon en Decimetros                     | Integer       |
+| height          | Altura del Pokemon en **decimetros**                 | Integer       |
 | moves           | Lista de Movimientos                                 | Array<String> |
 | types           | Lista de los tipos al que pertenece el Pokemon       | String        |
-| weight          | Altura del Pokemon en Hectogramos                    | Integer       |
+| weight          | Peso del Pokemon en **hectogramos**                  | Integer       |
 
 # Endpoints
 
@@ -95,10 +95,10 @@ Debera retornar **todos** los Pokemons páginados.
 | --------------- |:----------------------------------------------------:| -------------:|
 | id              | Pokemon Id                                           | Integer       |
 | base_experience | Experiencia base del Pokemon al ser capturado        | Integer       |
-| height          | Altura del Pokemon en **Centimetros**                | Integer       |
+| height          | Altura del Pokemon en **centimetros**                | Integer       |
 | moves           | Lista de Movimientos                                 | Array<String> |
 | types           | Lista de los tipos al que pertenece el Pokemon       | String        |
-| weight          | Altura del Pokemon en Hectogramos                    | Integer       |
+| weight          | Peso del Pokemon en **gramos**                       | Integer       |
 
 
 ## GET /{id}
@@ -111,7 +111,7 @@ Debera retornar el **pokemon** con el id especifico
 | --------------- |:----------------------------------------------------:| -------------:|
 | id              | Pokemon Id                                           | Integer       |
 | base_experience | Experiencia base del Pokemon al ser capturado        | Integer       |
-| height          | Altura del Pokemon en Centimetros                    | Integer       |
+| height          | Altura del Pokemon en **centimetros**                | Integer       |
 | moves           | Lista de Movimientos                                 | Array<String> |
 | types           | Lista de los tipos al que pertenece el Pokemon       | String        |
-| weight          | Altura del Pokemon en Hectogramos                    | Integer       |
+| weight          | Peso del Pokemon en **gramos**                       | Integer       |
