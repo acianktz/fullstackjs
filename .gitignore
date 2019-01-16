@@ -1,0 +1,21 @@
+mocks/**
+# Logs
+*.log
+
+# Dependency directory
+node_modules
+
+# Trash
+.DS_Store
+.idea
+.vscode
+# .fury
+
+# Dynamically processed files
+reports
+coverage
+build
+i18n
+
+# webpack bundle analyzer
+stats.json
