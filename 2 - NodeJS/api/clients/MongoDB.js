@@ -10,6 +10,7 @@ class MongoDB {
     return new Promise((resolve, reject) => {
       MongoClient.connect(this.mongoServer, (err, client) => {
         if (err) return reject(err);
+
         return resolve({
           client,
           db: client.db(config.get('mongo.database')),

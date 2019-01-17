@@ -12,6 +12,7 @@
   "dependencies": {
     "config": "^3.0.1",
     "express": "^4.16.4",
+    "mongodb": "^3.0.4",
     "winston-this": "^1.0.3"
   }
 }
