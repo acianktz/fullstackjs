@@ -26,8 +26,8 @@ Ya tenemos una instancia de Docker corriendo. Ahora solo nos queda restaurar la 
 
 Para esto debemos:
 
-1 - Copiar el dump al container
-2 - Restaurar la base
+1. Copiar el dump al container
+2. Restaurar la base
 
 #### Copiar el dump
 
