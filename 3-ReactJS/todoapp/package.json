@@ -1,7 +1,7 @@
 {
-  "name": "simple-react-full-stack",
+  "name": "simple-react-todo-app",
   "version": "1.0.0",
-  "description": "Boilerplate to build a full stack web application using React, Node.js, Express and Webpack.",
+  "description": "Simple React Todo list",
   "main": "src/server/index.js",
   "scripts": {
     "build": "webpack --mode production",
@@ -10,13 +10,16 @@
     "server": "nodemon src/server/index.js",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
-  "author": "Sandeep Raveesh",
+  "author": "Juanma Durand",
   "license": "ISC",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
+    "bootstrap": "^4.2.1",
     "express": "^4.16.3",
+    "prop-types": "^15.6.2",
     "react": "^16.5.2",
-    "react-dom": "^16.5.2"
+    "react-dom": "^16.5.2",
+    "shortid": "^2.2.14"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
@@ -35,10 +38,12 @@
     "eslint-plugin-react": "^7.7.0",
     "file-loader": "^2.0.0",
     "html-webpack-plugin": "^3.2.0",
+    "node-sass": "^4.11.0",
     "nodemon": "^1.17.3",
+    "sass-loader": "^7.1.0",
     "style-loader": "^0.23.0",
     "url-loader": "^1.0.1",
-    "webpack": "^4.5.0",
+    "webpack": "^4.28.4",
     "webpack-cli": "^3.0.8",
     "webpack-dev-server": "^3.1.3"
   }
