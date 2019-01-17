@@ -5,8 +5,8 @@ const router = require('express').Router();
 const PokemonService = require('../services/PokemonService');
 
 router.get('/', (req, res) => {
-  const limit = req.query.limit || 20;
-  const offset = req.query.offset || 0;
+  const limit = parseInt(req.query.limit) || 20;
+  const offset = parseInt(req.query.offset) || 0;
 
   PokemonService.getAll(limit, offset).then((pokemons) => {
     res.status(200).json({
