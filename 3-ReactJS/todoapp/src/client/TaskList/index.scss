@@ -1,0 +1,30 @@
+.TaskList {
+	list-style: none;
+    padding: 0;
+    .task {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 2px;
+        background: #fff;
+        border-radius: 2px;
+        padding: 10px 15px;
+        &__body {
+            display: flex;
+            vertical-align: middle;
+            align-items: center;
+            font-size: 1.2em;
+        }
+        input[type=checkbox] {
+            margin-top: 0;
+            margin-right: 22px;
+        }
+        &.checked {
+            background: #ddd;
+            .task__body {
+                text-decoration: line-through;
+                color: #666;
+            }
+        }
+        
+    }
+}
