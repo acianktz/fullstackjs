@@ -4,6 +4,7 @@
 const express = require('express');
 const ping = require('./routes/ping');
 const pokemon = require('./routes/pokemon');
+const types = require('./routes/types');
 const logger = require('winston-this')('index');
 const config = require('config');
 
@@ -12,7 +13,8 @@ const app = express();
 const port = config.get('port');
 
 // Add the routes
-app.use('/', pokemon);
+app.use('/pokemon', pokemon);
+app.use('/types', types);
 app.use('/ping', ping);
 
 // Expose the application
