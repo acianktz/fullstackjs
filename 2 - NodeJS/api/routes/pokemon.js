@@ -17,4 +17,14 @@ router.get('/', (req, res) => {
   });
 });
 
+router.get('/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+
+  PokemonService.getPokemon(id).then((pokemon) => {
+    res.status(200).json(pokemon);
+  }).catch((error) => {
+    res.status(500).send(error);
+  });
+});
+
 module.exports = router;

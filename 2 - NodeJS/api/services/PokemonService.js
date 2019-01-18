@@ -13,15 +13,16 @@ class PokemonService {
 
         const collection = db.collection('pokemon');
 
-        logger.info('Finding all polemons');
+        logger.info('Finding all Pokemons');
 
         collection.find({
           id: {
             $lte: 150,
           },
-        }).sort({
-          id: 1,
         })
+          .sort({
+            id: 1,
+          })
           .skip(offset)
           .limit(limit)
           .toArray()
@@ -43,6 +44,47 @@ class PokemonService {
 
             mongo.close(client);
             resolve(pokemons);
+          })
+          .catch((res) => {
+            mongo.close(client);
+            reject(res);
+          });
+      });
+    });
+  }
+
+  getPokemon(id) {
+    return new Promise((resolve, reject) => {
+      // Connect to Database
+      mongo.connect().then(({ client, db }) => {
+        logger.info(`Getting pokemon with id ${id}`);
+
+        const collection = db.collection('pokemon');
+
+        logger.info('Finding all Pokemons');
+
+        collection.find({
+          id: id,
+        })
+          .toArray()
+          .then((res) => {
+            // Deconstruct and remove the _id provided by MongoDB
+            const {
+              _id,
+              ...rest
+            } = res;
+
+            const pokemons = res.map((el) => {
+              const {
+                _id,
+                ...pk
+              } = el;
+
+              return pk;
+            });
+
+            mongo.close(client);
+            resolve(pokemons[0]);
           })
           .catch((res) => {
             mongo.close(client);
