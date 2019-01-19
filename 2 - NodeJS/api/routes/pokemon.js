@@ -12,9 +12,12 @@ router.get('/', (req, res) => {
     types: req.query.types,
   };
 
-  PokemonService.getAll(limit, offset, filters).then((pokemons) => {
+  PokemonService.getAll(limit, offset, filters).then((data) => {
     res.status(200).json({
-      results: pokemons,
+      results: data.pokemons,
+      total: data.count,
+      prev: data.prev,
+      next: data.next,
     });
   }).catch((error) => {
     res.status(500).send(error);

@@ -15,33 +15,51 @@ class PokemonService {
 
         logger.info('Finding all Pokemons');
 
+        // Create query and limit the query to 150
         const query = {
           id: {
             $lte: 150,
           },
         };
 
+        // Add type filter
         if (filters.types) {
           query.types = {
             $in: [filters.types],
           };
         }
 
-        collection.find(query)
+        // Make query
+        collection.aggregate([
+          {
+            "$match": query
+          },
+          {
+            "$facet": {
+              "results": [
+                {
+                  "$skip": offset
+                },
+                {
+                  "$limit": limit
+                }
+              ],
+              "count": [
+                {
+                  "$count": "count"
+                }
+              ]
+            }
+          }
+        ])
           .sort({
-            id: 1,
+            id: -1,
           })
-          .skip(offset)
-          .limit(limit)
           .toArray()
           .then((res) => {
-            // Deconstruct and remove the _id provided by MongoDB
-            const {
-              _id,
-              ...rest
-            } = res;
+            const data = res[0];
 
-            const pokemons = res.map((el) => {
+            const pokemons = data.results.map((el) => {
               const {
                 _id,
                 ...pk
@@ -51,7 +69,15 @@ class PokemonService {
             });
 
             mongo.close(client);
-            resolve(pokemons);
+
+            const count = data.count[0].count;
+
+            resolve({
+              pokemons: pokemons,
+              count: count,
+              prev: offset > 0,
+              next: (count - (offset + limit)) > 0
+            });
           })
           .catch((res) => {
             mongo.close(client);
