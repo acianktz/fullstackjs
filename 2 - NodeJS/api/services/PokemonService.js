@@ -5,7 +5,7 @@ const mongo = require('../clients/MongoDB');
 const logger = require('winston-this')('PokemonService');
 
 class PokemonService {
-  getAll(limit = 20, offset = 0) {
+  getAll(limit = 20, offset = 0, filters = {}) {
     return new Promise((resolve, reject) => {
       // Connect to Database
       mongo.connect().then(({ client, db }) => {
@@ -15,11 +15,19 @@ class PokemonService {
 
         logger.info('Finding all Pokemons');
 
-        collection.find({
+        const query = {
           id: {
             $lte: 150,
           },
-        })
+        };
+
+        if (filters.types) {
+          query.types = {
+            $in: [filters.types],
+          };
+        }
+
+        collection.find(query)
           .sort({
             id: 1,
           })

@@ -8,7 +8,11 @@ router.get('/', (req, res) => {
   const limit = parseInt(req.query.limit) || 20;
   const offset = parseInt(req.query.offset) || 0;
 
-  PokemonService.getAll(limit, offset).then((pokemons) => {
+  const filters = {
+    types: req.query.types,
+  };
+
+  PokemonService.getAll(limit, offset, filters).then((pokemons) => {
     res.status(200).json({
       results: pokemons,
     });
