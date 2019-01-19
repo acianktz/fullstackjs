@@ -5,15 +5,21 @@ const mongo = require('../clients/MongoDB');
 const logger = require('winston-this')('PokemonService');
 
 class PokemonService {
+  /**
+   * Get all Pokemons
+   *
+   * @param limit the number of pokemons to return
+   * @param offset start number from results on collection
+   * @param filters filters to apply
+   * @returns Promise
+   */
   getAll(limit = 20, offset = 0, filters = {}) {
-    return new Promise((resolve, reject) => {
-      // Connect to Database
-      mongo.connect().then(({ client, db }) => {
-        logger.info('Getting pokemon collection');
+    logger.info(`Getting all pokemons [limit=${limit}] offset=${offset} filters=${JSON.stringify(filters)}`);
 
+    // Connect to Database
+    return mongo.connect()
+      .then(({ client, db }) => {
         const collection = db.collection('pokemon');
-
-        logger.info('Finding all Pokemons');
 
         // Create query and limit the query to 150
         const query = {
@@ -30,7 +36,7 @@ class PokemonService {
         }
 
         // Make query
-        collection.aggregate([
+        return collection.aggregate([
           {
             "$match": query
           },
@@ -56,75 +62,84 @@ class PokemonService {
             id: -1,
           })
           .toArray()
-          .then((res) => {
-            const data = res[0];
+          .then(results => {
+            // Close database connection
+            mongo.close(client);
 
-            const pokemons = data.results.map((el) => {
+            const data = results[0];
+
+            const pokemons = data.results.map(pokemon => {
               const {
                 _id,
-                ...pk
-              } = el;
+                weight,
+                height,
+                ...others
+              } = pokemon;
 
-              return pk;
+              return {
+                weight: Math.round(weight * 0.1), // Convert to kilograms
+                height: (height * 10), // Convert to centimeters
+                others,
+              };
             });
-
-            mongo.close(client);
 
             const count = data.count[0].count;
 
-            resolve({
+            return Promise.resolve({
               pokemons: pokemons,
               count: count,
               prev: offset > 0,
               next: (count - (offset + limit)) > 0
             });
           })
-          .catch((res) => {
+          .catch(err => {
+            // Close database connection
             mongo.close(client);
-            reject(res);
+            return Promise.reject(err);
           });
       });
-    });
   }
 
+  /**
+   * Get Pokemon from id
+   *
+   * @param id
+   * @returns Promise
+   */
   getPokemon(id) {
-    return new Promise((resolve, reject) => {
-      // Connect to Database
-      mongo.connect().then(({ client, db }) => {
-        logger.info(`Getting pokemon with id ${id}`);
+    // Connect to Database
+    return mongo.connect().then(({ client, db }) => {
+      logger.info(`Getting pokemon with id ${id}`);
 
-        const collection = db.collection('pokemon');
+      const collection = db.collection('pokemon');
 
-        logger.info('Finding all Pokemons');
+      logger.info('Finding all Pokemons');
 
-        collection.find({
-          id: id,
-        })
-          .toArray()
-          .then((res) => {
+      return collection.find({
+        id: id,
+      })
+        .toArray()
+        .then(results => {
+          // Close connection
+          mongo.close(client);
+
+          const pokemons = results.map(pokemon => {
             // Deconstruct and remove the _id provided by MongoDB
             const {
               _id,
-              ...rest
-            } = res;
+              ...others
+            } = pokemon;
 
-            const pokemons = res.map((el) => {
-              const {
-                _id,
-                ...pk
-              } = el;
-
-              return pk;
-            });
-
-            mongo.close(client);
-            resolve(pokemons[0]);
-          })
-          .catch((res) => {
-            mongo.close(client);
-            reject(res);
+            return others;
           });
-      });
+
+          return Promise.resolve(pokemons[0]);
+        })
+        .catch(err => {
+          mongo.close(client);
+
+          return Promise.reject(err);
+        });
     });
   }
 }

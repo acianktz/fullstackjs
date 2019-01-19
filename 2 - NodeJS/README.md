@@ -81,16 +81,17 @@ Cada uno de los elementos tiene la siguiente estructuraa
 
 A continuación se listaran los endpoints correspondientes
 
-## GET /
+## GET /pokemon
 
 Debera retornar **todos** los Pokemons páginados.
 
 ### Parametros
 
-| Name        | Desription                           | Type    |
-| ----------- |:------------------------------------:| -------:|
-| limit       | La cantidad de Pokemons a traer      | Integer |
-| offset      | El offset a aplicar                  | Integer |
+| Name        | Desription                              | Type    |
+| ----------- |:---------------------------------------:| -------:|
+| limit       | La cantidad de Pokemons a traer         | Integer |
+| offset      | El offset a aplicar                     | Integer |
+| types       | Permite filtrar por el tipo de Pokemon  | String  |
 
 ### Respuesta
 
@@ -108,10 +109,10 @@ Debera retornar **todos** los Pokemons páginados.
 | height          | Altura del Pokemon en **centimetros**                | Integer       |
 | moves           | Lista de Movimientos                                 | Array<String> |
 | types           | Lista de los tipos al que pertenece el Pokemon       | String        |
-| weight          | Peso del Pokemon en **gramos**                       | Integer       |
+| weight          | Peso del Pokemon en **kilogramos**                   | Integer       |
 
 
-## GET /{id}
+## GET /pokemon/{id}
 
 Debera retornar el **pokemon** con el id especifico
 
@@ -125,7 +126,7 @@ Debera retornar el **pokemon** con el id especifico
 | height          | Altura del Pokemon en **centimetros**                | Integer       |
 | moves           | Lista de Movimientos                                 | Array<String> |
 | types           | Lista de los tipos al que pertenece el Pokemon       | String        |
-| weight          | Peso del Pokemon en **gramos**                       | Integer       |
+| weight          | Peso del Pokemon en **kilogramos**                   | Integer       |
 
 ## GET /types
 
@@ -138,23 +139,6 @@ Debera retornar **todos** tipos de Pokemons
 | results     | Lista de Pokemons                    | Array   |
 
 #### Results
-
-| Name            | Desription                                           | Type          |
-| --------------- |:----------------------------------------------------:| -------------:|
-| id              | Pokemon Id                                           | Integer       |
-| name            | Nombre del Type                                      | String        |
-
-### Respuesta
-
-| Name        | Desription                           | Type    |
-| ----------- |:------------------------------------:| -------:|
-| results     | Lista de Pokemons                    | Array   |
-
-## GET /types/{id}
-
-Debera retornar el tipo de pokemon con el id especifico
-
-### Respuesta
 
 | Name            | Desription                                           | Type          |
 | --------------- |:----------------------------------------------------:| -------------:|

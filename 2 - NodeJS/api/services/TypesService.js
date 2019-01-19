@@ -6,44 +6,36 @@ const logger = require('winston-this')('TypesService');
 
 class TypesService {
   getAll() {
-    return new Promise((resolve, reject) => {
-      // Connect to Database
-      mongo.connect().then(({ client, db }) => {
-        logger.info('Getting types');
+    logger.info('Getting all types');
 
-        const collection = db.collection('types');
+    // Connect to Database
+    return mongo.connect().then(({ client, db }) => {
+      const collection = db.collection('types');
 
-        logger.info('Finding all types');
+      return collection.find({})
+        .sort({
+          id: 1,
+        })
+        .toArray()
+        .then((res) => {
+          mongo.close(client);
 
-        collection.find({})
-          .sort({
-            id: 1,
-          })
-          .toArray()
-          .then((res) => {
+          const types = res.map(type => {
             // Deconstruct and remove the _id provided by MongoDB
             const {
               _id,
-              ...rest
-            } = res;
+              ...others
+            } = type;
 
-            const types = res.map((el) => {
-              const {
-                _id,
-                ...pk
-              } = el;
-
-              return pk;
-            });
-
-            mongo.close(client);
-            resolve(types);
-          })
-          .catch((res) => {
-            mongo.close(client);
-            reject(res);
+            return others;
           });
-      });
+
+          return Promise.resolve(types);
+        })
+        .catch(err => {
+          mongo.close(client);
+          return Promise.reject(err);
+        });
     });
   }
 }

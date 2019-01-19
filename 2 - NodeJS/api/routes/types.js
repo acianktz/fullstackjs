@@ -9,8 +9,8 @@ router.get('/', (req, res) => {
     res.status(200).json({
       results: types,
     });
-  }).catch((error) => {
-    res.status(500).send(error);
+  }).catch(error => {
+    next(error);
   });
 });
 
