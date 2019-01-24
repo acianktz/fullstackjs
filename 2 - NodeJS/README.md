@@ -18,7 +18,7 @@ Para realizar esta aplicación vamos a consumir toda la información de una Base
 
 En lugar de hacer una instalación local vamos a hacerlo mediante Docker. Para esto vamos a ejecutar el siguiente comando:
 
-> docker run mongo --name mongo -d -p 27017:27017
+> docker run --name mongo -d -p 27017:27017 mongo
 
 Ya tenemos una instancia de Docker corriendo. Ahora solo nos queda restaurar la el dump de la base de datos
 
@@ -41,7 +41,7 @@ De esta manera ya copiamos la carpeta `db` al contendor de `mongo`
 
 Para esto debemos ingresar primero al contenedor
 
-> docker exec -it /bin/bash
+> docker exec -it mongo /bin/bash
 
 Ya estamos dentro del contenedor y sobre el root (`/`). Ahora tenemos que restaurar la db
 
