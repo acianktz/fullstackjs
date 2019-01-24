@@ -151,7 +151,7 @@ Query a Pokemon by Id
 
 ```javascript
 return collection.find({
-id: id,
+  id: id,
 });
 ```
 
