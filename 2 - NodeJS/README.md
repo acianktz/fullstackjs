@@ -45,7 +45,7 @@ Para esto debemos ingresar primero al contenedor
 
 Ya estamos dentro del contenedor y sobre el root (`/`). Ahora tenemos que restaurar la db
 
-> mongorestore db
+> mongorestore -d pokedex db
 
 Listo! Ya tenemos la base de datos
 
