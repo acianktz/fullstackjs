@@ -144,3 +144,47 @@ Debera retornar **todos** tipos de Pokemons
 | --------------- |:----------------------------------------------------:| -------------:|
 | id              | Pokemon Id                                           | Integer       |
 | name            | Nombre del Type                                      | String        |
+
+## MongoDB Queries
+
+Query a Pokemon by Id
+
+```javascript
+return collection.find({
+id: id,
+});
+```
+
+Find Pokemons between a range of ids and filter by type
+
+```javascript
+return collection.aggregate([
+  {
+    "$match": {
+      id: {
+        $lte: 150,
+      },
+      types: {
+        $in: ['type']
+      }
+    }
+  },
+  {
+    "$facet": {
+      "results": [
+        {
+          "$skip": offset
+        },
+        {
+          "$limit": limit
+        }
+      ],
+      "count": [
+        {
+          "$count": "count"
+        }
+      ]
+    }
+  }
+]);
+```
